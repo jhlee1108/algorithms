@@ -3,36 +3,29 @@
 int main() {
     int n, m, k, i, j, x, y;
     int matrix[301][301];
-    int sum[301][301];
+    int psum[301][301];
 
     scanf("%d %d", &n, &m);
 
     for(int a=1; a<=n; a++) {
+        int ps = 0;
         for(int b=1; b<=m; b++) {
             scanf("%d", &matrix[a][b]);
+            ps += matrix[a][b];
+            psum[a][b] = ps;
         }
     }
 
     scanf("%d", &k);
 
-    for(int a=0; a<k; a++) {
+    while(k--) {
         scanf("%d %d %d %d", &i, &j, &x, &y);
+        int ans = 0;
 
-        for(int b=i; b<=x; b++) {
-            for(int c=j; c<=y; c++) {
-                if(b == i && c == j)
-                    sum[b][c] = matrix[b][c];
-                else if(b == i)
-                    sum[b][c] = sum[b][c-1] + matrix[b][c];
-                else if(c == j)
-                    sum[b][c] = sum[b-1][c] + matrix[b][c];
-                else
-                    sum[b][c] = sum[b-1][c] + sum[b][c-1] - sum[b-1][c-1]
-                                + matrix[b][c];
-            }
-        }
+        for(int a=i; a<=x; a++)
+            ans += (psum[a][y] - psum[a][j-1]);
 
-        printf("%d\n", sum[x][y]);
+        printf("%d\n", ans);
     }
 
     return 0;
