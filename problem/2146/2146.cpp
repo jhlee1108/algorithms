@@ -4,17 +4,18 @@
 
 using namespace std;
 
+#define PII pair<int,int>
+
 int n;
 int map[100][100] = {0,};
 int group[100][100] = {0,};
 int d[100][100] = {0,};
 int dx[4] = {-1, 1, 0, 0};
 int dy[4] = {0, 0, -1, 1};
-int cnt = 0;
 
 void make_group(int x, int y, int cnt) {
     group[x][y] = cnt;
-    queue<pair<int,int>> q;
+    queue<PII> q;
     q.push(make_pair(x,y));
 
     while(!q.empty()) {
@@ -37,7 +38,7 @@ void make_group(int x, int y, int cnt) {
 }
 
 int main() {
-    queue<pair<int,int>> q;
+    queue<PII> q;
 
     scanf("%d", &n);
 
@@ -49,6 +50,7 @@ int main() {
         }
     }
 
+    int cnt = 0;
     for(int i=0; i<n; i++)
         for(int j=0; j<n; j++)
             if(map[i][j] == 1 && group[i][j] == 0)
